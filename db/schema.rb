@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811203710) do
+ActiveRecord::Schema.define(:version => 20120811214437) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(:version => 20120811203710) do
     t.string   "twitter_handle"
     t.string   "twitter_oauth_token"
     t.string   "twitter_oauth_secret"
+    t.string   "facebook"
+    t.string   "linkedin"
+    t.string   "foursquare"
+    t.string   "googleplus"
+    t.string   "homepage"
+    t.string   "phone"
+    t.string   "company"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
