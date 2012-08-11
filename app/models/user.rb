@@ -11,9 +11,19 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_handle
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_handle, :provider, :uid
   # attr_accessible :title, :body
+
+  def self.find_for_twitter_oauth(omniauth)
+    user = User.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
+    if user.nil?
+      password = Devise.friendly_token[0,20]
+      user = User.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :password => password, :password_confirmation => password, :email => omniauth['uid'] + "@twitter.com")
+      user.save
+    end
+    user
+  end
 end

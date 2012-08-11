@@ -1,11 +1,5 @@
 Bluebanana::Application.routes.draw do
-  devise_for :user do
-    match '/user/sign_in/twitter' => Devise::Twitter::Rack::Signin
-    match '/user/connect/twitter' => Devise::Twitter::Rack::Connect
-  end
-
-
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :events
   resources :profiles

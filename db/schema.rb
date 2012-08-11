@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811220150) do
+ActiveRecord::Schema.define(:version => 20120811230343) do
 
   create_table "events", :force => true do |t|
     t.string   "eventbrite_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20120811220150) do
     t.string   "company"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
