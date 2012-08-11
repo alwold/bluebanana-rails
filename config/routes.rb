@@ -1,7 +1,14 @@
 Bluebanana::Application.routes.draw do
+  devise_for :user do
+    match '/user/sign_in/twitter' => Devise::Twitter::Rack::Signin
+    match '/user/connect/twitter' => Devise::Twitter::Rack::Connect
+  end
+
+
   devise_for :users
 
   resources :events
+  resources :profiles
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
