@@ -7,6 +7,7 @@ Bluebanana::Application.routes.draw do
     end
     member do
       resources :attendees
+      post 'checkin'
     end
   end
   resources :profiles

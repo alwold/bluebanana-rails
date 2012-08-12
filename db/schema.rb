@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812005418) do
+ActiveRecord::Schema.define(:version => 20120812025805) do
+
+  create_table "checkins", :force => true do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+  end
 
   create_table "events", :force => true do |t|
     t.string   "eventbrite_id"

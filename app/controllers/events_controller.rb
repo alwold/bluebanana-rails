@@ -47,4 +47,15 @@ class EventsController < ApplicationController
       format.json { render :json => data }
     end
   end
+
+  def checkin
+    checkin = Checkin.new
+    checkin.user = User.find(params[:user_id])
+    checkin.event = Event.find(params[:event_id])
+    checkin.save
+
+    respond_to do |format|
+      format.json { render :json => { :success => true, :checkin_id => checkin.id } }
+    end
+  end
 end
