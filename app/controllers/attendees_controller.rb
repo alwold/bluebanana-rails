@@ -26,7 +26,7 @@ class AttendeesController < ApplicationController
       end
       attendees.push attendee
     end
-    # TODO find attendees that are checked in but not in eventbrite
+    # find attendees that are checked in but not in eventbrite
     event.checkins.each do |checkin|
       if attendees.select { |attendee| attendee["first_name"] == checkin.user.first_name && attendee["last_name"] == checkin.user.last_name }.empty?
         attendee = Hash.new
@@ -42,6 +42,24 @@ class AttendeesController < ApplicationController
           attendee["met_before_at"] = met_before_at
         end
         attendees.push attendee
+      end
+    end
+    # find tweets
+    found = Array.new
+    if !event.hashtag.blank?
+      logger.debug "hash is #{event.hashtag}"
+      Twitter.search(event.hashtag, :rpp => 1000).results.map do |tweet|
+        attendee = Hash.new
+        user = tweet.from_user
+        if !found.include?(user)
+          found.push user
+          name = tweet.from_user_name.split(" ")
+          attendee["first_name"] = name.first
+          if name.length > 1
+            attendee["last_name"] = name.last
+          end
+          attendees.push attendee
+        end
       end
     end
     respond_to do |format|
