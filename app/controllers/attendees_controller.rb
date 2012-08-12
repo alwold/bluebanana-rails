@@ -14,16 +14,7 @@ class AttendeesController < ApplicationController
       attendee = Hash.new
       attendee["first_name"] = attendee_raw["attendee"]["first_name"]
       attendee["last_name"] = attendee_raw["attendee"]["last_name"]
-      # see if attendee was met before
-      if user
-        met_before_at = Array.new
-        Event.joins(:meetings).where(:meetings => 
-          {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user_id => user}
-          ).each do |event|
-          met_before_at.push event
-        end
-        attendee["met_before_at"] = met_before_at
-      end
+      find_met_before(user, attendee)
       attendees.push attendee
     end
     # find attendees that are checked in but not in eventbrite
@@ -32,15 +23,7 @@ class AttendeesController < ApplicationController
         attendee = Hash.new
         attendee["first_name"] = checkin.user.first_name
         attendee["last_name"] = checkin.user.last_name
-        if user
-          met_before_at = Array.new
-          Event.joins(:meetings).where(:meetings => 
-            {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user_id => user}
-            ).each do |event|
-            met_before_at.push event
-          end
-          attendee["met_before_at"] = met_before_at
-        end
+        find_met_before(user, attendee)
         attendees.push attendee
       end
     end
@@ -58,12 +41,27 @@ class AttendeesController < ApplicationController
           if name.length > 1
             attendee["last_name"] = name.last
           end
+          find_met_before(user, attendee)
           attendees.push attendee
         end
       end
     end
     respond_to do |format|
       format.json { render :json => attendees }
+    end
+  end
+
+  private
+
+  def find_met_before(user, attendee)
+    if user
+      met_before_at = Array.new
+      Event.joins(:meetings).where(:meetings => 
+        {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user_id => user}
+        ).each do |event|
+        met_before_at.push event
+      end
+      attendee["met_before_at"] = met_before_at
     end
   end
 end
