@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
       params[:user][:password_confirmation] = password
       user = User.new(params[:user])
       user.save!
-    }
+    end
 
     respond_to do |format|
       format.json { render :json => { :user => user } }
