@@ -28,7 +28,7 @@ class AttendeesController < ApplicationController
     end
     # TODO find attendees that are checked in but not in eventbrite
     event.checkins.each do |checkin|
-      if attendees.select { |attendee| attendee.first_name == checkin.user.first_name && attendee.last_name == checkin.user.last_name }.empty?
+      if attendees.select { |attendee| attendee["first_name"] == checkin.user.first_name && attendee["last_name"] == checkin.user.last_name }.empty?
         attendee = Hash.new
         attendee["first_name"] = checkin.user.first_name
         attendee["last_name"] = checkin.user.last_name
