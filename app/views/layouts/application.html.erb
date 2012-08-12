@@ -46,7 +46,12 @@
           </a>
           <a class="brand" href="#">Loop</a>
           <div class="container nav-collapse">
-            <ul class="nav">
+            <ul class="nav pull-right">
+              <% if user_signed_in? %>
+                <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+              <% else %>
+                <li><%= link_to "Log in", new_user_session_path %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
