@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_handle, :provider, :uid
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_handle, :provider, 
+    :uid, :phone, :first_name, :last_name, :company, :facebook, :linkedin, :foursquare, :googleplus, :homepage
   # attr_accessible :title, :body
 
   def self.find_for_twitter_oauth(omniauth)
