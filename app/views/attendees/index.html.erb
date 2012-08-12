@@ -5,11 +5,13 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Source</th>
     </tr>
   </thead>
   <% @attendees.each do |attendee| %>
     <tr>
       <td><%= attendee["first_name"] %> <%= attendee["last_name"] %></td>
+      <td><%= attendee["source"] %></td>
     </tr>
   <% end %>
 </table>

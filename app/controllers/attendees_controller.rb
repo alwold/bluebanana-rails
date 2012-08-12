@@ -14,6 +14,7 @@ class AttendeesController < ApplicationController
       attendee = Hash.new
       attendee["first_name"] = attendee_raw["attendee"]["first_name"]
       attendee["last_name"] = attendee_raw["attendee"]["last_name"]
+      attendee["source"] = "Eventbrite attendee"
       find_met_before(user, attendee)
       @attendees.push attendee
     end
@@ -23,6 +24,7 @@ class AttendeesController < ApplicationController
         attendee = Hash.new
         attendee["first_name"] = checkin.user.first_name
         attendee["last_name"] = checkin.user.last_name
+        attendee["source"] = "Loop checkin"
         find_met_before(user, attendee)
         @attendees.push attendee
       end
@@ -41,6 +43,7 @@ class AttendeesController < ApplicationController
           if name.length > 1
             attendee["last_name"] = name.last
           end
+          attendee["source"] = "Twitter"
           find_met_before(user, attendee)
           @attendees.push attendee
         end
