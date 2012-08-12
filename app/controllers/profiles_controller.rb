@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
     user.save!
 
     respond_to do |format|
-      format.json { render :json => { :success => true } }
+      format.json { render :json => { :success => true, :user_id => user.id } }
     end
   end
 end
