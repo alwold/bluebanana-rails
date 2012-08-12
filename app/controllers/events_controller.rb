@@ -36,6 +36,8 @@ class EventsController < ApplicationController
     data["description"] = raw_data["event"]["description"]
     data["start"] = raw_data["event"]["start_date"]
     data["end"] = raw_data["event"]["end_date"]
+    data["latitude"] = raw_data["event"]["venue"]["latitude"]
+    data["longitude"] = raw_data["event"]["venue"]["longitude"]
     respond_to do |format|
       format.json { render :json => data }
     end

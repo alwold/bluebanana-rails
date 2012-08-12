@@ -5,6 +5,9 @@ Bluebanana::Application.routes.draw do
     collection do
       get 'eventbrite'
     end
+    member do
+      resources :attendees
+    end
   end
   resources :profiles
   # The priority is based upon order of creation:

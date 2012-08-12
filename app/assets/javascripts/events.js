@@ -14,6 +14,8 @@ function loadEventInfo(eventbriteId) {
       $('#event_description').val(data.description);
       $('#event_start').val(data.start);
       $('#event_end').val(data.end);
+      $('#event_latitude').val(data.latitude);
+      $('#event_longitude').val(data.longitude);
       $("#spinner").hide();
     },
     error: function() {
