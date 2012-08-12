@@ -1,0 +1,27 @@
+<%= form_for @event do |f| %>
+  <%= f.label :eventbrite_id %>
+  <%= f.text_field :eventbrite_id %>
+
+  <span id="spinner" style="display: none;">
+    <%= image_tag "spinner.gif" %>
+  </span>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :start %>
+  <%= f.text_field :start %>
+
+  <%= f.label :end %>
+  <%= f.text_field :end %>
+
+  <%= f.label :hashtag %>
+  <%= f.text_field :hashtag %>
+
+  <p>
+    <%= f.submit :class => "btn btn-primary" %>
+  </p>
+<% end %>

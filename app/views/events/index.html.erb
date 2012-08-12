@@ -1,3 +1,11 @@
-Loop!
+<h1>Events</h1>
 
+<table class="table">
+  <% @events.each do |event| %>
+    <tr>
+      <td><%= event.title %></td>
+      <td><%= link_to "Edit", edit_event_path(event), :class => "btn" %></td>
+    </tr>
+  <% end %>
+</table>
 <%= link_to "New Event", new_event_path %>

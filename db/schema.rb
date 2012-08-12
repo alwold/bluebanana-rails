@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811230343) do
+ActiveRecord::Schema.define(:version => 20120812003440) do
 
   create_table "events", :force => true do |t|
     t.string   "eventbrite_id"
     t.string   "title"
-    t.string   "description"
     t.datetime "start"
     t.datetime "end"
+    t.string   "hashtag"
+    t.text     "description"
   end
 
   create_table "users", :force => true do |t|
