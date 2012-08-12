@@ -1,0 +1,15 @@
+<h1><%= @event.title %></h1>
+<h2>Attendees</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <% @attendees.each do |attendee| %>
+    <tr>
+      <td><%= attendee["first_name"] %> <%= attendee["last_name"] %></td>
+    </tr>
+  <% end %>
+</table>
