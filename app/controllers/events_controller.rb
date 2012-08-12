@@ -1,7 +1,7 @@
 require 'event_brite'
 
 class EventsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :checkin, :meeting]
 
   def index
     @events = Event.all
@@ -51,11 +51,29 @@ class EventsController < ApplicationController
   def checkin
     checkin = Checkin.new
     checkin.user = User.find(params[:user_id])
-    checkin.event = Event.find(params[:event_id])
-    checkin.save
+    checkin.event = Event.find(params[:id])
+    checkin.save!
 
     respond_to do |format|
-      format.json { render :json => { :success => true, :checkin_id => checkin.id } }
+      format.json { render :json => { :checkin_id => checkin.id } }
+    end
+  end
+
+  def meeting
+    meeting = Meeting.new
+    meeting.event = Event.find(params[:id])
+    meeting.user = User.find(params[:user_id])
+    if params[:acquaintance_id]
+      meeting.acquaintance = User.find(params[:acquaintance_id])
+    end
+    meeting.acquaintance_first_name = params[:acquaintance_first_name]
+    meeting.acquaintance_last_name = params[:acquaintance_last_name]
+    meeting.acquaintance_source = params[:acquaintance_source]
+    meeting.notes = params[:notes]
+    meeting.save!
+
+    respond_to do |format|
+      format.json { render :json => { :meeting_id => meeting.id } }
     end
   end
 end
