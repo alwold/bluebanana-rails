@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
     }
 
     respond_to do |format|
-      format.json { render :json => { :success => true, :user_id => user.id } }
+      format.json { render :json => { :user => user } }
     end
   end
 end
