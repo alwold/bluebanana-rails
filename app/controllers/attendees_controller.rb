@@ -17,7 +17,9 @@ class AttendeesController < ApplicationController
       # see if attendee was met before
       if user
         met_before_at = Array.new
-        Event.joins(:meetings).where(:meetings => {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user => user}).each do |event|
+        Event.joins(:meetings).where(:meetings => 
+          {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user_id => user}
+          ).each do |event|
           met_before_at.push event
         end
         attendee["met_before_at"] = met_before_at
