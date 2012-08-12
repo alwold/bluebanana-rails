@@ -1,10 +1,15 @@
 require 'event_brite'
 
 class EventsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index]
 
   def index
     @events = Event.all
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @events }
+    end
   end
 
   def new
