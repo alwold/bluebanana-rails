@@ -26,8 +26,24 @@ class AttendeesController < ApplicationController
       end
       attendees.push attendee
     end
-
-    # TODO clean up data and indicate if the user is checked in
+    # TODO find attendees that are checked in but not in eventbrite
+    event.checkins.each do |checkin|
+      if attendees.select { |attendee| attendee.first_name == checkin.user.first_name && attendee.last_name == checkin.user.last_name }.empty?
+        attendee = Hash.new
+        attendee["first_name"] = checkin.user.first_name
+        attendee["last_name"] = checkin.user.last_name
+        if user
+          met_before_at = Array.new
+          Event.joins(:meetings).where(:meetings => 
+            {:acquaintance_first_name => attendee["first_name"], :acquaintance_last_name => attendee["last_name"], :user_id => user}
+            ).each do |event|
+            met_before_at.push event
+          end
+          attendee["met_before_at"] = met_before_at
+        end
+        attendees.push attendee
+      end
+    end
     respond_to do |format|
       format.json { render :json => attendees }
     end
